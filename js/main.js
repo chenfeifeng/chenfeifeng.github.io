@@ -1,41 +1,79 @@
-function setTitleDate()
-{
-	var body_width = $("#body").css("width")
-	var container_width = $("#container").css("width")
-	var container_margin_right = $("#container").css("margin-right");
-	var container_padding_right = $("#container").css("padding-right");
-	//var container_right = parseInt(container_margin_right) + parseInt(container_padding_right);
-	var container_right = (parseInt(body_width) - parseInt(container_width))/2 + 10;
-	$("#title-date").css("right", container_right);
-}
+var alphaDust = function () {
 
-$(document).ready(function() {
-	
-	$(window).scroll(function(){  //只要窗口滚动,就触发下面代码 
-        var scrollt = document.documentElement.scrollTop + document.body.scrollTop; //获取滚动后的高度 
-        if( scrollt >200 ){  //判断滚动后高度超过200px,就显示
-            $("#gotop").fadeIn(400); //淡出
-			$(".navbar").stop().fadeTo(400, 0.2);
-        }else{
-            $("#gotop").fadeOut(400); //如果返回或者没有超过,就淡入.必须加上stop()停止之前动画,否则会出现闪动
-			$(".navbar").stop().fadeTo(400, 1);
-        }
-    });
-    $("#gotop").click(function(){ //当点击标签的时候,使用animate在200毫秒的时间内,滚到顶部
-        $("html,body").animate({scrollTop:"0px"},200);
-    });
-	$(".navbar").mouseenter(function(){
-		$(".navbar").fadeTo(100, 1);
-	});
-    $(".navbar").mouseleave(function(){
-		var scrollt = document.documentElement.scrollTop + document.body.scrollTop;
-		if ( scrollt > 200) {
-			$(".navbar").fadeTo(100, 0.2);
-		}
-	});	
-	setTitleDate();
+    var _menuOn = false;
+
+    function initPostHeader() {
+        $('.main .post').each(function () {
+            var $post = $(this);
+            var $header = $post.find('.post-header.index');
+            var $title = $post.find('h1.title');
+            var $readMoreLink = $post.find('a.read-more');
+
+            var toggleHoverClass = function () {
+                $header.toggleClass('hover');
+            };
+
+            $title.hover(toggleHoverClass, toggleHoverClass);
+            $readMoreLink.hover(toggleHoverClass, toggleHoverClass);
+        });
+    }
+
+    function _menuShow () {
+        $('nav a').addClass('menu-active');
+        $('.menu-bg').show();
+        $('.menu-item').css({opacity: 0});
+        TweenLite.to('.menu-container', 1, {padding: '0 40px'});
+        TweenLite.to('.menu-bg', 1, {opacity: '0.92'});
+        TweenMax.staggerTo('.menu-item', 0.5, {opacity: 1}, 0.3);
+        _menuOn = true;
+
+        $('.menu-bg').hover(function () {
+            $('nav a').toggleClass('menu-close-hover');
+        });
+    }
+
+    function _menuHide() {
+        $('nav a').removeClass('menu-active');
+        TweenLite.to('.menu-bg', 0.5, {opacity: '0', onComplete: function () {
+            $('.menu-bg').hide();
+        }});
+        TweenLite.to('.menu-container', 0.5, {padding: '0 100px'});
+        $('.menu-item').css({opacity: 0});
+        _menuOn = false;
+    }
+
+    function initMenu() {
+
+        $('nav a').click(function () {
+            if(_menuOn) {
+                _menuHide();
+            } else {
+                _menuShow();
+            }
+        });
+
+        $('.menu-bg').click(function (e) {
+            if(_menuOn && e.target === this) {
+                _menuHide();
+            }
+        });
+    }
+
+    function displayArchives() {
+        $('.archive-post').css({opacity: 0});
+        TweenMax.staggerTo('.archive-post', 0.4, {opacity: 1}, 0.15);
+    }
+
+    return {
+        initPostHeader: initPostHeader,
+        initMenu: initMenu,
+        displayArchives: displayArchives
+    };
+}();
+
+
+$(document).ready(function () {
+    alphaDust.initPostHeader();
+    alphaDust.initMenu();
+    alphaDust.displayArchives();
 });
-
-$(window).resize(function () {
-	setTitleDate();
-})
