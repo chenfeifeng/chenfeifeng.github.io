@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://github.com/chenfeifeng/chenfeifeng.github.io.git/2016/09/04/shiro2/</loc>
+    
+    <lastmod>2016-09-06T14:47:16.119Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://github.com/chenfeifeng/chenfeifeng.github.io.git/2016/08/15/markdowntest/</loc>
     
     <lastmod>2016-08-28T15:26:39.252Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>https://github.com/chenfeifeng/chenfeifeng.github.io.git/tags/index.html</loc>
     
     <lastmod>2016-08-21T15:09:09.439Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://github.com/chenfeifeng/chenfeifeng.github.io.git/2015/10/21/demo/</loc>
-    
-    <lastmod>2016-08-14T15:10:52.897Z</lastmod>
     
   </url>
   
