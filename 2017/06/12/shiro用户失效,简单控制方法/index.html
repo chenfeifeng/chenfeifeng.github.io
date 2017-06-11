@@ -86,17 +86,17 @@
 
 
 
-<meta name="description" content="shiro用户失效,现象: 在使用shiro控制权限,当用户登录之后,比如设置了30分钟的失效时间,然后30分钟过去之后,用户实现 此时shiro会过滤每一次接口,判断是否是有效用户(即是否能够调用接口),因为此时用户已经失效,那么shiro直接会将接口重定向到loginUrl中去,但是这个是后端的重定向,前端无法跳转到登录页面,只能再次刷新.">
+<meta name="description" content="shiro用户失效现象: 在使用shiro控制权限,当用户登录之后,比如设置了30分钟的失效时间,然后30分钟过去之后,用户实现 此时shiro会过滤每一次接口,判断是否是有效用户(即是否能够调用接口),因为此时用户已经失效,那么shiro直接会将接口重定向到loginUrl中去,但是这个是后端的重定向,前端无法跳转到登录页面,只能再次刷新.">
 <meta name="keywords" content="shiro">
 <meta property="og:type" content="article">
-<meta property="og:title" content="shiro">
-<meta property="og:url" content="https://github.com/chenfeifeng/chenfeifeng.github.io.git/2016/09/06/shiro用户失效,简单控制方法/index.html">
+<meta property="og:title" content="shiro用户失效">
+<meta property="og:url" content="https://github.com/chenfeifeng/chenfeifeng.github.io.git/2017/06/12/shiro用户失效,简单控制方法/index.html">
 <meta property="og:site_name" content="九客">
-<meta property="og:description" content="shiro用户失效,现象: 在使用shiro控制权限,当用户登录之后,比如设置了30分钟的失效时间,然后30分钟过去之后,用户实现 此时shiro会过滤每一次接口,判断是否是有效用户(即是否能够调用接口),因为此时用户已经失效,那么shiro直接会将接口重定向到loginUrl中去,但是这个是后端的重定向,前端无法跳转到登录页面,只能再次刷新.">
-<meta property="og:updated_time" content="2017-06-11T16:05:53.000Z">
+<meta property="og:description" content="shiro用户失效现象: 在使用shiro控制权限,当用户登录之后,比如设置了30分钟的失效时间,然后30分钟过去之后,用户实现 此时shiro会过滤每一次接口,判断是否是有效用户(即是否能够调用接口),因为此时用户已经失效,那么shiro直接会将接口重定向到loginUrl中去,但是这个是后端的重定向,前端无法跳转到登录页面,只能再次刷新.">
+<meta property="og:updated_time" content="2017-06-11T16:10:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shiro">
-<meta name="twitter:description" content="shiro用户失效,现象: 在使用shiro控制权限,当用户登录之后,比如设置了30分钟的失效时间,然后30分钟过去之后,用户实现 此时shiro会过滤每一次接口,判断是否是有效用户(即是否能够调用接口),因为此时用户已经失效,那么shiro直接会将接口重定向到loginUrl中去,但是这个是后端的重定向,前端无法跳转到登录页面,只能再次刷新.">
+<meta name="twitter:title" content="shiro用户失效">
+<meta name="twitter:description" content="shiro用户失效现象: 在使用shiro控制权限,当用户登录之后,比如设置了30分钟的失效时间,然后30分钟过去之后,用户实现 此时shiro会过滤每一次接口,判断是否是有效用户(即是否能够调用接口),因为此时用户已经失效,那么shiro直接会将接口重定向到loginUrl中去,但是这个是后端的重定向,前端无法跳转到登录页面,只能再次刷新.">
 
 
 
@@ -117,9 +117,9 @@
 
 
 
-  <link rel="canonical" href="https://github.com/chenfeifeng/chenfeifeng.github.io.git/2016/09/06/shiro用户失效,简单控制方法/"/>
+  <link rel="canonical" href="https://github.com/chenfeifeng/chenfeifeng.github.io.git/2017/06/12/shiro用户失效,简单控制方法/"/>
 
-  <title> shiro | 九客 </title>
+  <title> shiro用户失效 | 九客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -259,7 +259,7 @@
             
             
               
-                shiro
+                shiro用户失效
               
             
           </h1>
@@ -271,8 +271,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-06T22:47:18+08:00" content="2016-09-06">
-              2016-09-06
+            <time itemprop="dateCreated" datetime="2017-06-12T00:00:00+08:00" content="2017-06-12">
+              2017-06-12
             </time>
           </span>
 
@@ -318,7 +318,7 @@
       
 
       
-        <h1 id="shiro用户失效"><a href="#shiro用户失效" class="headerlink" title="shiro用户失效,"></a>shiro用户失效,</h1><h2 id="现象"><a href="#现象" class="headerlink" title="现象:"></a>现象:</h2><ol>
+        <h1 id="shiro用户失效"><a href="#shiro用户失效" class="headerlink" title="shiro用户失效"></a>shiro用户失效</h1><h2 id="现象"><a href="#现象" class="headerlink" title="现象:"></a>现象:</h2><ol>
 <li>在使用shiro控制权限,当用户登录之后,比如设置了30分钟的失效时间,然后30分钟过去之后,用户实现</li>
 <li>此时shiro会过滤每一次接口,判断是否是有效用户(即是否能够调用接口),因为此时用户已经失效,那么shiro直接会将接口重定向到loginUrl中去,但是这个是后端的重定向,前端无法跳转到登录页面,只能再次刷新.</li>
 </ol>
@@ -373,8 +373,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/04/shiro2/" rel="next" title="shiro">
-                <i class="fa fa-chevron-left"></i> shiro
+              <a href="/2017/06/12/shiro用户失效,简单控制方法的副本/" rel="next" title="cglib动态代理实现">
+                <i class="fa fa-chevron-left"></i> cglib动态代理实现
               </a>
             
           </div>
@@ -447,7 +447,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -464,7 +464,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -500,7 +500,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#shiro用户失效"><span class="nav-number">1.</span> <span class="nav-text">shiro用户失效,</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#现象"><span class="nav-number">1.1.</span> <span class="nav-text">现象:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方案"><span class="nav-number">1.2.</span> <span class="nav-text">方案:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现1"><span class="nav-number">1.3.</span> <span class="nav-text">实现1:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现2"><span class="nav-number">1.4.</span> <span class="nav-text">实现2:</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#shiro用户失效"><span class="nav-number">1.</span> <span class="nav-text">shiro用户失效</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#现象"><span class="nav-number">1.1.</span> <span class="nav-text">现象:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方案"><span class="nav-number">1.2.</span> <span class="nav-text">方案:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现1"><span class="nav-number">1.3.</span> <span class="nav-text">实现1:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现2"><span class="nav-number">1.4.</span> <span class="nav-text">实现2:</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

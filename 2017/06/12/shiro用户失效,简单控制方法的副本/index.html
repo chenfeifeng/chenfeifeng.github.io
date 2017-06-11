@@ -1,0 +1,630 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="cglib proxy," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="九客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="cglib动态代理实现cglib实现apo功能">
+<meta name="keywords" content="cglib proxy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cglib动态代理实现">
+<meta property="og:url" content="https://github.com/chenfeifeng/chenfeifeng.github.io.git/2017/06/12/shiro用户失效,简单控制方法的副本/index.html">
+<meta property="og:site_name" content="九客">
+<meta property="og:description" content="cglib动态代理实现cglib实现apo功能">
+<meta property="og:updated_time" content="2017-06-11T16:12:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cglib动态代理实现">
+<meta name="twitter:description" content="cglib动态代理实现cglib实现apo功能">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://github.com/chenfeifeng/chenfeifeng.github.io.git/2017/06/12/shiro用户失效,简单控制方法的副本/"/>
+
+  <title> cglib动态代理实现 | 九客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">九客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">一天进步一点</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                cglib动态代理实现
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-12T00:00:00+08:00" content="2017-06-12">
+              2017-06-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="cglib动态代理实现"><a href="#cglib动态代理实现" class="headerlink" title="cglib动态代理实现"></a>cglib动态代理实现</h1><p>cglib实现apo功能</p>
+<a id="more"></a>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//目标类</span></div><div class="line"><span class="keyword">public</span> class Subject &#123;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="built_in">int</span> a=<span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> Map&lt;<span class="keyword">String</span>,<span class="keyword">String</span>&gt; <span class="built_in">map</span>=<span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;<span class="keyword">String</span>,<span class="keyword">String</span>&gt;();</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="built_in">int</span> say(<span class="keyword">String</span> name)&#123;</div><div class="line">        a++;</div><div class="line">        System.out.<span class="built_in">println</span>(<span class="string">"say:"</span>+name+<span class="string">"--"</span>+a);</div><div class="line">        <span class="keyword">return</span> name.length();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> putMap(<span class="keyword">String</span> <span class="built_in">key</span>,<span class="keyword">String</span> value)&#123;</div><div class="line">        <span class="built_in">map</span>.put(<span class="built_in">key</span>,value);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">String</span> getMap()&#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">map</span>.toString();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//代理类</span></div><div class="line"><span class="selector-tag">public</span> <span class="selector-tag">class</span> <span class="selector-tag">CglibProxyOne</span> <span class="selector-tag">implements</span> <span class="selector-tag">MethodInterceptor</span> &#123;</div><div class="line">    <span class="variable">@Override</span></div><div class="line">    public Object intercept(Object o, Method method, Object[] args, MethodProxy methodProxy) throws Throwable &#123;</div><div class="line">        <span class="comment">// 排除Object类中的toString等方法</span></div><div class="line">        <span class="comment">//(和jdk代理一样都会把Object的toString,equals,hashCode方法进行代理)这边进行过滤</span></div><div class="line">        boolean objFlag = method<span class="selector-class">.getDeclaringClass</span>()<span class="selector-class">.getName</span>()<span class="selector-class">.equals</span>(<span class="string">"java.lang.Object"</span>);</div><div class="line">        <span class="selector-tag">if</span>(!objFlag)&#123;</div><div class="line">            System<span class="selector-class">.out</span><span class="selector-class">.println</span>(<span class="string">"before"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//通过代理类调用父类中的方法</span></div><div class="line">        Object result = methodProxy.invokeSuper(o, args);</div><div class="line">        <span class="selector-tag">if</span>(!objFlag)&#123;</div><div class="line">            System<span class="selector-class">.out</span><span class="selector-class">.println</span>(<span class="string">"after"</span>);</div><div class="line">        &#125;</div><div class="line">        return result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//测试类</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> Main &#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        CglibProxyMore proxy=<span class="keyword">new</span> CglibProxyMore();</div><div class="line">        Subject proxyImpl=(Subject)Enhancer.create(Subject.<span class="keyword">class</span>,proxy);</div><div class="line">        proxy.setTargetObj(proxyImpl);</div><div class="line">        proxyImpl.say(<span class="string">"cff"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">输出:</div><div class="line"><span class="keyword">before</span></div><div class="line"><span class="built_in">say</span>:test<span class="comment">--1</span></div><div class="line"><span class="keyword">after</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>cglib是可以直接以class进行代理,这边实现了单次的增强,重点是CglibProxyOne类中进行了方法增强.那么想要多次增强该怎么办呢?</p>
+</blockquote>
+<h2 id="cglib进行多次增强"><a href="#cglib进行多次增强" class="headerlink" title="cglib进行多次增强"></a>cglib进行多次增强</h2><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> class CglibProxyMore implements MethodInterceptor &#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">Object</span> targetObj;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> setTargetObj(<span class="keyword">Object</span> targetObj) &#123;</div><div class="line">        <span class="keyword">this</span>.targetObj = targetObj;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    <span class="keyword">public</span> <span class="keyword">Object</span> intercept(<span class="keyword">Object</span> o, Method method, <span class="keyword">Object</span>[] args, MethodProxy methodProxy) <span class="keyword">throws</span> Throwable &#123;</div><div class="line">        <span class="comment">// 排除Object类中的toString等方法</span></div><div class="line">        <span class="built_in">boolean</span> objFlag = method.getDeclaringClass().getName().equals(<span class="string">"java.lang.Object"</span>);</div><div class="line">        <span class="keyword">if</span>(!objFlag)&#123;</div><div class="line">            System.out.<span class="built_in">println</span>(<span class="string">"before"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//通过代理类调用父类中的方法</span></div><div class="line">        <span class="keyword">Object</span> result = methodProxy.invokeSuper(targetObj, args);</div><div class="line">        <span class="keyword">if</span>(!objFlag)&#123;</div><div class="line">            System.out.<span class="built_in">println</span>(<span class="string">"after"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>思考:</strong> 代理类进行多次代理,进行测试<br><figure class="highlight pony"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public <span class="class"><span class="keyword">class</span> <span class="title">Main2</span> &#123;</span></div><div class="line">    public static void main(<span class="type">String</span>[] args) &#123;</div><div class="line">        <span class="type">CglibProxyMore</span> proxy=<span class="function"><span class="keyword">new</span> <span class="title">CglibProxyMore</span>();</span></div><div class="line">        <span class="title">Enhancer</span> <span class="title">e</span> = <span class="title">new</span> <span class="title">Enhancer</span>();</div><div class="line">        <span class="title">e</span>.<span class="title">setSuperclass</span>(<span class="type">Subject</span>.class);</div><div class="line">        <span class="title">e</span>.<span class="title">setCallback</span>(proxy);        </div><div class="line">        <span class="title">Subject</span> <span class="title">proxyImpl</span>= (<span class="type">Subject</span>) <span class="title">e</span>.<span class="title">create</span>();</div><div class="line">        <span class="title">proxy</span>.<span class="title">setTargetObj</span>(new <span class="type">Subject</span>());</div><div class="line">        <span class="comment">//----------</span></div><div class="line">        <span class="title">CglibProxyMore</span> <span class="title">proxy2</span>=<span class="title">new</span> <span class="title">CglibProxyMore</span>();</div><div class="line">        <span class="title">Enhancer</span> <span class="title">e2</span> = <span class="title">new</span> <span class="title">Enhancer</span>();</div><div class="line">        <span class="title">e2</span>.<span class="title">setSuperclass</span>(<span class="type">Subject</span>.class);</div><div class="line">        <span class="title">e2</span>.<span class="title">setCallback</span>(proxy2); </div><div class="line">        <span class="title">proxy2</span>.<span class="title">setTargetObj</span>(proxyImpl);</div><div class="line">        <span class="title">Subject</span> <span class="title">proxyImpl2</span>= (<span class="type">Subject</span>) <span class="title">e2</span>.<span class="title">create</span>();</div><div class="line">        <span class="title">proxyImpl2</span>.<span class="title">say</span>("asdas");</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">输出:</div><div class="line"><span class="keyword">before</span></div><div class="line"><span class="built_in">say</span>:asdas<span class="comment">--1</span></div><div class="line"><span class="keyword">after</span></div></pre></td></tr></table></figure>
+<p>还是只有一次,然后发现methodProxy代理对象执行的是invokerSuper方法,只会执行一次目标类的方法,所以只会进行一次增强.<br>那么改成invoke;<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">Object result</span> = methodProxy.invoke(targetObj, args);</div></pre></td></tr></table></figure></p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">输出:</div><div class="line"><span class="keyword">before</span></div><div class="line"><span class="keyword">before</span></div><div class="line"><span class="built_in">say</span>:asdas<span class="comment">--1</span></div><div class="line"><span class="keyword">after</span></div><div class="line"><span class="keyword">after</span></div></pre></td></tr></table></figure>
+<p>因为cglib动态代理针对类进行代理,对指定的类生成一个代理子类,那么想要多次增强,是否可以对代理子类再次进行代理,如果是这样,依旧用invokeSuper()方法,最终执行的都是目标类的方法,所以只会进行一次.</p>
+<p>那么就要想办法可以循环执行,介于需要执行上一次代理子类的方法,那么我们将这个上级代理子类传递进来.每次多级代理的时候进行父级目标类的设入,达到多次增强的效果.</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cglib-proxy/" rel="tag">#cglib proxy</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/04/shiro2/" rel="next" title="shiro">
+                <i class="fa fa-chevron-left"></i> shiro
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/12/shiro用户失效,简单控制方法/" rel="prev" title="shiro用户失效">
+                shiro用户失效 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/head1.JPG"
+               alt="Joker_Chen" />
+          <p class="site-author-name" itemprop="name">Joker_Chen</p>
+          <p class="site-description motion-element" itemprop="description">鶸的成长记录~</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cglib动态代理实现"><span class="nav-number">1.</span> <span class="nav-text">cglib动态代理实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">1.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cglib进行多次增强"><span class="nav-number">1.2.</span> <span class="nav-text">cglib进行多次增强</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Joker_Chen</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
